@@ -9,21 +9,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var platform_browser_1 = require('@angular/platform-browser');
-var app_component_1 = require('./app.component');
-var people_component_1 = require('./people.component');
-var AppModule = (function () {
-    function AppModule() {
+var PeopleComponent = (function () {
+    function PeopleComponent() {
     }
-    AppModule = __decorate([
-        core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule],
-            declarations: [app_component_1.AppComponent, people_component_1.PeopleComponent],
-            bootstrap: [app_component_1.AppComponent]
+    PeopleComponent = __decorate([
+        core_1.Component({
+            selector: 'people',
+            template: "\n        <tr>\n           <td>bb</td>\n           <td>bb</td>\n           <td>bb</td>\n           <td>bb</td>\n        </tr>\n    "
         }), 
         __metadata('design:paramtypes', [])
-    ], AppModule);
-    return AppModule;
+    ], PeopleComponent);
+    return PeopleComponent;
 }());
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+exports.PeopleComponent = PeopleComponent;
+//# sourceMappingURL=people.component.js.map
