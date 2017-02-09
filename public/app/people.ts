@@ -8,4 +8,11 @@ export class People {
     richest: boolean;
     skills: Skill[];
     interests: Interest[];
+
+    constructor(id: number, name: string, org: string, richest: boolean) {
+        this.id = id;
+        this.name = name;
+        this.org = org;
+        this.richest = richest;
+    }
 }

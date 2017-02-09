@@ -9,24 +9,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var platform_browser_1 = require('@angular/platform-browser');
-var app_component_1 = require('./app.component');
-var people_component_1 = require('./people.component');
 var http_1 = require('@angular/http');
-var people_service_1 = require('./people.service');
-var AppModule = (function () {
-    function AppModule() {
+require('rxjs/add/operator/map');
+var PeopleService = (function () {
+    function PeopleService(http) {
+        this.http = http;
     }
-    AppModule = __decorate([
-        core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule, http_1.HttpModule],
-            declarations: [app_component_1.AppComponent, people_component_1.PeopleComponent],
-            bootstrap: [app_component_1.AppComponent],
-            providers: [people_service_1.PeopleService]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], AppModule);
-    return AppModule;
+    PeopleService.prototype.getPersons = function () {
+        return this.http.request("/people").map(function (res) {
+            return res.json();
+        });
+        //.map((res : Response) => {
+        //return (<any>res.json()).items.map(item => {
+        //    return new People(item.id, item.name, item.org, false);
+        //})
+        //});
+    };
+    PeopleService = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [http_1.Http])
+    ], PeopleService);
+    return PeopleService;
 }());
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+exports.PeopleService = PeopleService;
+//# sourceMappingURL=people.service.js.map

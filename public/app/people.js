@@ -1,6 +1,10 @@
 "use strict";
 var People = (function () {
-    function People() {
+    function People(id, name, org, richest) {
+        this.id = id;
+        this.name = name;
+        this.org = org;
+        this.richest = richest;
     }
     return People;
 }());

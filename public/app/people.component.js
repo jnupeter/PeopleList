@@ -14,8 +14,9 @@ var PeopleComponent = (function () {
     }
     PeopleComponent = __decorate([
         core_1.Component({
-            selector: 'people',
-            template: "\n        <tr>\n           <td>bb</td>\n           <td>bb</td>\n           <td>bb</td>\n           <td>bb</td>\n        </tr>\n    "
+            selector: '[people]',
+            template: "\n           <td>{{person.name}}</td>\n           <td>{{person.org}}</td>\n           <td>bb</td>\n           <td>bb</td>\n    ",
+            inputs: ['person']
         }), 
         __metadata('design:paramtypes', [])
     ], PeopleComponent);
