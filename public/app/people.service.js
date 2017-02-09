@@ -16,14 +16,16 @@ var PeopleService = (function () {
         this.http = http;
     }
     PeopleService.prototype.getPersons = function () {
+        var _this = this;
         return this.http.request("/people").map(function (res) {
+            _this.ps = res.json();
+            return _this.ps;
+        });
+    };
+    PeopleService.prototype.getRichestPerson = function () {
+        return this.http.request("/richest").map(function (res) {
             return res.json();
         });
-        //.map((res : Response) => {
-        //return (<any>res.json()).items.map(item => {
-        //    return new People(item.id, item.name, item.org, false);
-        //})
-        //});
     };
     PeopleService = __decorate([
         core_1.Injectable(), 

@@ -10,12 +10,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var people_service_1 = require('./people.service');
+var Observable_1 = require('rxjs/Observable');
+require('rxjs/add/observable/forkJoin');
 var AppComponent = (function () {
     function AppComponent(peopleService) {
-        var _this = this;
+        this.peopleService = peopleService;
         this.persons = [];
-        peopleService.getPersons().subscribe(function (res) { return _this.persons = res; });
     }
+    AppComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        Observable_1.Observable.forkJoin(this.peopleService.getPersons(), this.peopleService.getRichestPerson()).subscribe(function (res) {
+            _this.persons = res[0];
+            _this.richPerson = res[1].richestPerson;
+            console.log("richest person:" + _this.richPerson);
+            _this.persons.forEach(function (p) {
+                console.log("in for each p.id=" + p.id + "," + _this.richPerson);
+                if (p.id == _this.richPerson) {
+                    p.richest = true;
+                }
+            });
+        });
+    };
     AppComponent = __decorate([
         core_1.Component({
             selector: 'people-list',

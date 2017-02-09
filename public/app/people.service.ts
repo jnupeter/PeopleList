@@ -7,19 +7,23 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class PeopleService {
     ps : People[];
-    constructor(public http: Http) {
 
+    constructor(public http: Http) {
     }
 
     getPersons() : Observable<People[]> {
        return this.http.request("/people").map(res => {
-           return <People[]>res.json();
+           this.ps = <People[]>res.json();
+           return this.ps;
        });
-              //.map((res : Response) => {
-                 //return (<any>res.json()).items.map(item => {
-                 //    return new People(item.id, item.name, item.org, false);
-                 //})
-              //});
     }
+
+    getRichestPerson() : Observable<any> {
+        return this.http.request("/richest").map(res => {
+            return <any>res.json();
+        });
+    }
+
+    
 
 }
