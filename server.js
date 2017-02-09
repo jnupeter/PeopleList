@@ -36,6 +36,7 @@ var app = express();
 // Allow static content
 app.configure(function(){
 	app.use(express.static(__dirname + '/public'));
+    app.use('/node_modules', express.static(__dirname + '/node_modules'));
 });
 
 // API to get a list of people
