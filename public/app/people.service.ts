@@ -3,6 +3,8 @@ import { Http, Response }  from '@angular/http';
 import { People } from './people';
 import { Observable }  from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import { Skill } from './skill';
+import { Interest } from './interest';
 
 @Injectable()
 export class PeopleService {
@@ -24,6 +26,26 @@ export class PeopleService {
         });
     }
 
-    
+    getSkillsFor(persons: People[]) : Observable<Skill[]> {
+         var q = persons.map(p => {
+             return p.id.toString();
+         }).join(',');
+
+         var url = "/skills?personIds=" + q;
+         return this.http.request(url).map(res => {
+            return <Skill[]>res.json();
+         });
+    }
+
+    getInterestsFor(persons: People[]) : Observable<Interest[]> {
+         var q = persons.map(p => {
+             return p.id.toString();
+         }).join(',');
+
+         var url = "/interests?personIds=" + q;
+         return this.http.request(url).map(res => {
+             return <Interest[]>res.json();
+         });
+    }
 
 }

@@ -10,25 +10,49 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var people_service_1 = require('./people.service');
-var Observable_1 = require('rxjs/Observable');
 require('rxjs/add/observable/forkJoin');
+require('rxjs/add/operator/map');
 var AppComponent = (function () {
     function AppComponent(peopleService) {
         this.peopleService = peopleService;
         this.persons = [];
+        this.skills = [];
+        this.interests = [];
     }
     AppComponent.prototype.ngOnInit = function () {
         var _this = this;
-        Observable_1.Observable.forkJoin(this.peopleService.getPersons(), this.peopleService.getRichestPerson()).subscribe(function (res) {
-            _this.persons = res[0];
-            _this.richPerson = res[1].richestPerson;
-            console.log("richest person:" + _this.richPerson);
-            _this.persons.forEach(function (p) {
-                console.log("in for each p.id=" + p.id + "," + _this.richPerson);
-                if (p.id == _this.richPerson) {
-                    p.richest = true;
-                }
+        this.peopleService.getPersons().map(function (persons) {
+            //get persons
+            _this.persons = persons;
+            //get skills
+            _this.peopleService.getSkillsFor(persons).subscribe(function (res) {
+                _this.skills = res;
+                _this._populateSkills(res);
             });
+            //get interests
+            _this.peopleService.getInterestsFor(persons).subscribe(function (res) {
+                _this.interests = res;
+                _this._populateInterests(res);
+            });
+            //get richestpersons
+            _this.peopleService.getRichestPerson().subscribe(function (res) {
+                var richestPerson = res.richestPerson;
+                _this.persons.forEach(function (p) {
+                    if (p.id == richestPerson) {
+                        p.richest = true;
+                    }
+                });
+            });
+        }).subscribe(function (res) { return console.log('finished'); });
+    };
+    AppComponent.prototype._populateSkills = function (skills) {
+        this.persons.forEach(function (p) {
+            p.skills = skills.filter(function (s) { return s.personId == p.id.toString(); });
+        });
+    };
+    AppComponent.prototype._populateInterests = function (interests) {
+        this.persons.forEach(function (p) {
+            p.interests = interests.filter(function (i) { return i.personId == p.id.toString(); });
         });
     };
     AppComponent = __decorate([

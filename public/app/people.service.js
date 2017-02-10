@@ -27,6 +27,24 @@ var PeopleService = (function () {
             return res.json();
         });
     };
+    PeopleService.prototype.getSkillsFor = function (persons) {
+        var q = persons.map(function (p) {
+            return p.id.toString();
+        }).join(',');
+        var url = "/skills?personIds=" + q;
+        return this.http.request(url).map(function (res) {
+            return res.json();
+        });
+    };
+    PeopleService.prototype.getInterestsFor = function (persons) {
+        var q = persons.map(function (p) {
+            return p.id.toString();
+        }).join(',');
+        var url = "/interests?personIds=" + q;
+        return this.http.request(url).map(function (res) {
+            return res.json();
+        });
+    };
     PeopleService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])

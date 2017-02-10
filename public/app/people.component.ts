@@ -6,8 +6,8 @@ import { People } from './people';
     template: `
            <td>{{person.name}}</td>
            <td>{{person.org}}</td>
-           <td>bb</td>
-           <td>bb</td>
+           <td><ul><li *ngFor="let s of person.skills">{{s.name}}</li></ul></td>
+           <td><ul><li *ngFor="let i of person.interests">{{i.name}}</li></ul></td>
     `,
     inputs: ['person']
 })

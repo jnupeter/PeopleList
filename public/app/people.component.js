@@ -15,7 +15,7 @@ var PeopleComponent = (function () {
     PeopleComponent = __decorate([
         core_1.Component({
             selector: '[people]',
-            template: "\n           <td>{{person.name}}</td>\n           <td>{{person.org}}</td>\n           <td>bb</td>\n           <td>bb</td>\n    ",
+            template: "\n           <td>{{person.name}}</td>\n           <td>{{person.org}}</td>\n           <td><ul><li *ngFor=\"let s of person.skills\">{{s.name}}</li></ul></td>\n           <td><ul><li *ngFor=\"let i of person.interests\">{{i.name}}</li></ul></td>\n    ",
             inputs: ['person']
         }), 
         __metadata('design:paramtypes', [])
