@@ -32,6 +32,8 @@ export class AppComponent implements OnInit {
    }
 
    ngOnInit() {
+
+      //get all persons
       Observable.forkJoin(
         this.peopleService.getPersons(),
         this.peopleService.getRichestPerson()
@@ -40,14 +42,22 @@ export class AppComponent implements OnInit {
             this.persons = res[0];
             
             this.richPerson = res[1].richestPerson;
-            console.log("richest person:" + this.richPerson);
             this.persons.forEach(p => {
-                console.log("in for each p.id=" + p.id + "," + this.richPerson);
                 if (p.id == this.richPerson) {
                   p.richest = true;
                 }
             });
         }
       );
-   }
+   
+    //get all skills and interest
+    Observable.forkJoin(
+      this.peopleService.getSkillsFor(this.persons),
+      this.peopleService.getInterestsFor(this.persons)
+    ) .subscribe(
+       res => {
+         
+       }
+    );
+}
 }
